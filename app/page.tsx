@@ -19,20 +19,26 @@ import OrderManagement from "@/components/order/OrderManagement";
 import PaymentManagement from "@/components/payment/PaymentManagement";
 import { Button } from "@/components/ui/button";
 
+interface SalesData {
+  date: string;
+  sales: number;
+  inventory: number;
+}
+
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("inventory");
-  const [salesData, setSalesData] = useState([]);
+  const [salesData, setSalesData] = useState<SalesData[]>([]);
 
-  useEffect(() => {
-    const data = Array.from({ length: 7 }, (_, i) => ({
-      date: new Date(
-        Date.now() - (6 - i) * 24 * 60 * 60 * 1000
-      ).toLocaleDateString(),
-      sales: Math.floor(Math.random() * 1000) + 500,
-      inventory: Math.floor(Math.random() * 200) + 100,
-    }));
-    setSalesData(data);
-  }, []);
+ useEffect(() => {
+   const data: SalesData[] = Array.from({ length: 7 }, (_, i) => ({
+     date: new Date(
+       Date.now() - (6 - i) * 24 * 60 * 60 * 1000
+     ).toLocaleDateString(),
+     sales: Math.floor(Math.random() * 1000) + 500,
+     inventory: Math.floor(Math.random() * 200) + 100,
+   }));
+   setSalesData(data);
+ }, []);
 
   return (
     <div className="min-h-screen bg-background p-8">
